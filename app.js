@@ -34,27 +34,6 @@ app.get('/products/:id', function (req, res, next) {
   res.json({msg: 'This is CORS-enabled for all origins!'})
 })
 
-ExpressPeerServer.on("disconnect", function(id){ //that value was a misnomer. it is NOT the id, its this whole peer obj.
-
-    let id1 = connected_users.indexOf(id.id);
-    if(id1 !== -1)
-    {
-        connected_users.splice(id1, 1);
-    }
-    
-    let id2 = waiting_peers.indexOf(id.id); 
-    if(id2 !== -1)
-    {
-        waiting_peers.splice(id2, 1);
-    } 
-
-    connectedSpacesArray.remove(id1); 
-});
-
-
-
-
-
 //getting a random chat partner
 var waiting_peers = [];
 app.get("/find", function(httpRequest, httpResponse, next)
@@ -252,6 +231,30 @@ app.get("/updateConnection", function(httpRequest, httpResponse, next)
     }
     connectedSpacesArray.logArrays(); 
 
+});
+
+app.get("/reset", function(httpRequest, httpResponse, next)
+{ 
+    connectedSpacesArray.reset();
+    httpResponse.send("reset peers");
+    console.log("reset peers");
+});
+
+ExpressPeerServer.on("disconnect", function(id){ //that value was a misnomer. it is NOT the id, its this whole peer obj.
+
+    let id1 = connected_users.indexOf(id.id);
+    if(id1 !== -1)
+    {
+        connected_users.splice(id1, 1);
+    }
+    
+    let id2 = waiting_peers.indexOf(id.id); 
+    if(id2 !== -1)
+    {
+        waiting_peers.splice(id2, 1);
+    } 
+
+    connectedSpacesArray.remove(id.id); 
 });
 
 /******************* */

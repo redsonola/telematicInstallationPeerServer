@@ -71,7 +71,6 @@ class CycleSpacesArray
         console.log( this.ids );
         console.log( this.updated );
         console.log("******");
-
     }
 
     getCurrentPairs()
@@ -189,6 +188,15 @@ class CycleSpacesArray
         {                    
             this.updated[i] = false;
         }
+    }
+
+    reset()
+    {
+        this.array1 = [];
+        this.array2 =[];
+        this.ids =[];
+        this.updated =[];
+
     }
 
 
