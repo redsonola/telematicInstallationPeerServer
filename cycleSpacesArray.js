@@ -131,6 +131,8 @@ class CycleSpacesArray
     //handle removal
     remove( id )
     {
+        console.log("removing: " + id);
+
         let indexToRemove = this.ids.indexOf( id ); 
         if( indexToRemove === -1 )
         {
