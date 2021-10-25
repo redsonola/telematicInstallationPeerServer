@@ -17,8 +17,6 @@ var server = app.listen(process.env.PORT || 9000, () => {
 var ExpressPeerServer = require("peer").ExpressPeerServer(server); 
 app.use("/signaling", ExpressPeerServer);
 
-app.use( cors() );
-
 
 var connected_users = [];
 
