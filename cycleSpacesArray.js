@@ -111,7 +111,7 @@ class CycleSpacesArray
                 if( indexInArray1 >= this.array2.length )
                 {
                     //no partner yet :( 
-                    return 0; 
+                    return "0"; 
                 }
                 pairIndex = indexInArray1; 
                 whichArray = this.array2; 
