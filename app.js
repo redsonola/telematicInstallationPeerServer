@@ -233,6 +233,12 @@ app.get("/updateConnection", function(httpRequest, httpResponse, next)
 
 });
 
+app.get("/disconnectId", function(httpRequest, httpResponse, next)
+{ 
+    let id = httpRequest.query.id ; 
+    connectedSpacesArray.remove(id); 
+});
+
 app.get("/reset", function(httpRequest, httpResponse, next)
 { 
     connectedSpacesArray.reset();
