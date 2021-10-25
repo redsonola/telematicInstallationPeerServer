@@ -201,19 +201,19 @@ app.get("/connectAndCycle", function(httpRequest, httpResponse, next)
     let id = httpRequest.query.id 
     connectedSpacesArray.add( id ); s
     connectedSpacesArray.cycle(); 
-    // httpResponse.status(404).send("Not found");
+    httpResponse.status(404).send("Not found");
 
-    let newPartner = connectedSpacesArray.connectToNewSpace(id); 
+    // let newPartner = connectedSpacesArray.connectToNewSpace(id); 
 
-    if( newPartner === -1 )
-    {
-        httpResponse.status(404).send("Not found");
-    }
-    else 
-    {
-        httpResponse.send(newPartner);
-    }
-    console.log( "send " +id+ " response: " + newPartner );
+    // if( newPartner === -1 )
+    // {
+    //     httpResponse.status(404).send("Not found");
+    // }
+    // else 
+    // {
+    //     httpResponse.send(newPartner);
+    // }
+    // console.log( "send " +id+ " response: " + newPartner );
     connectedSpacesArray.logArrays(); 
 });
 
