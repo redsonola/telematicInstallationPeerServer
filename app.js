@@ -199,7 +199,7 @@ app.get("/connectAndCycle", function(httpRequest, httpResponse, next)
 { 
     console.log("received cycle request: " + httpRequest.query.id);
     let id = httpRequest.query.id 
-    connectedSpacesArray.add( id ); 
+    connectedSpacesArray.add( id ); s
     connectedSpacesArray.cycle(); 
     // httpResponse.status(404).send("Not found");
 
