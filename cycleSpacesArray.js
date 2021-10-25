@@ -40,6 +40,7 @@ class CycleSpacesArray
     {
         if( this.ids.length <= 2 )
         {
+            this.resetUpdated(); //still reset updated so we can connect again.
             return; //don't cycle if only 2 people are connecting
         }
 
@@ -196,7 +197,6 @@ class CycleSpacesArray
         this.array2 =[];
         this.ids =[];
         this.updated =[];
-
     }
 
 
