@@ -211,6 +211,7 @@ app.get("/connectAndCycle", function(httpRequest, httpResponse, next)
     {
         httpResponse.send(newPartner);
     }
+    console.log( "send " +id+ " response: " + newPartner );
     connectedSpacesArray.logArrays(); 
 });
 
@@ -229,6 +230,7 @@ app.get("/updateConnection", function(httpRequest, httpResponse, next)
     {
         httpResponse.send(newPartner);
     }
+    console.log( "send " +id+ " response: " + newPartner );
     connectedSpacesArray.logArrays(); 
 
 });
