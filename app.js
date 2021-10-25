@@ -9,6 +9,7 @@ var cors = require('cors')
 
 app.use( cors() );
 
+
 const port = 9000
 var server = app.listen(process.env.PORT || 9000, () => {
     console.log(`Example app listening at http://localhost:${port}`)
@@ -49,48 +50,7 @@ ExpressPeerServer.on("disconnect", function(id){ //that value was a misnomer. it
 });
 
 
-/***************** NEW CYCLING SERVER CODE!!!!! ***********************/
-var connectedSpacesArray = new CycleSpacesArray(); 
 
-app.get("/connectAndCycle", function(httpRequest, httpResponse, next)
-{ 
-    console.log("received cycle request: " + httpRequest.query.id);
-    let id = httpRequest.query.id 
-    connectedSpacesArray.add( id );
-    connectedSpacesArray.cycle(); 
-    let newPartner = connectedSpacesArray.connectToNewSpace(id); 
-
-    if( newPartner === -1 )
-    {
-        httpResponse.status(404).send("Not found");
-    }
-    else 
-    {
-        httpResponse.send(newPartner);
-    }
-    connectedSpacesArray.logArrays(); 
-});
-
-app.get("/updateConnection", function(httpRequest, httpResponse, next)
-{ 
-    console.log("received update connection request: " + httpRequest.query.id);
-    let id = httpRequest.query.id 
-
-    let newPartner = connectedSpacesArray.connectToNewSpace(id); 
-
-    if( newPartner === -1 )
-    {
-        httpResponse.status(404).send("Not found");
-    }
-    else 
-    {
-        httpResponse.send(newPartner);
-    }
-    connectedSpacesArray.logArrays(); 
-
-});
-
-/******************* */
 
 
 //getting a random chat partner
@@ -250,6 +210,49 @@ app.get("/testCycleSpacesArrayNewSpace", function(httpRequest, httpResponse, nex
     spacesArray.logArrays(); 
 
 });
+
+/***************** NEW CYCLING SERVER CODE!!!!! ***********************/
+var connectedSpacesArray = new CycleSpacesArray(); 
+
+app.get("/connectAndCycle", function(httpRequest, httpResponse, next)
+{ 
+    console.log("received cycle request: " + httpRequest.query.id);
+    let id = httpRequest.query.id 
+    connectedSpacesArray.add( id );
+    connectedSpacesArray.cycle(); 
+    let newPartner = connectedSpacesArray.connectToNewSpace(id); 
+
+    if( newPartner === -1 )
+    {
+        httpResponse.status(404).send("Not found");
+    }
+    else 
+    {
+        httpResponse.send(newPartner);
+    }
+    connectedSpacesArray.logArrays(); 
+});
+
+app.get("/updateConnection", function(httpRequest, httpResponse, next)
+{ 
+    console.log("received update connection request: " + httpRequest.query.id);
+    let id = httpRequest.query.id 
+
+    let newPartner = connectedSpacesArray.connectToNewSpace(id); 
+
+    if( newPartner === -1 )
+    {
+        httpResponse.status(404).send("Not found");
+    }
+    else 
+    {
+        httpResponse.send(newPartner);
+    }
+    connectedSpacesArray.logArrays(); 
+
+});
+
+/******************* */
 
 
 
