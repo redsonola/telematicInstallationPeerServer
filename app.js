@@ -199,7 +199,7 @@ app.get("/connectAndCycle", function(httpRequest, httpResponse, next)
 { 
     console.log("received cycle request: " + httpRequest.query.id);
     let id = httpRequest.query.id 
-    connectedSpacesArray.add( id ); s
+    connectedSpacesArray.add( id ); 
     connectedSpacesArray.cycle(); 
     httpResponse.status(404).send("Not found");
 
@@ -214,7 +214,8 @@ app.get("/connectAndCycle", function(httpRequest, httpResponse, next)
     //     httpResponse.send(newPartner);
     // }
     // console.log( "send " +id+ " response: " + newPartner );
-    connectedSpacesArray.logArrays(); 
+
+    // connectedSpacesArray.logArrays(); 
 });
 
 app.get("/updateConnection", function(httpRequest, httpResponse, next)
