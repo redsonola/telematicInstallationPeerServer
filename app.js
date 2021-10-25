@@ -7,9 +7,7 @@ const express = require('express')
 const app = express()
 var cors = require('cors')  
 
-app.use(cors({
-    origin: '*'
-}));
+app.use( cors() );
 
 
 const port = 9000
@@ -18,6 +16,10 @@ var server = app.listen(process.env.PORT || 9000, () => {
   })
 var ExpressPeerServer = require("peer").ExpressPeerServer(server); 
 app.use("/signaling", ExpressPeerServer);
+
+app.use( cors() );
+
+
 var connected_users = [];
 
 
