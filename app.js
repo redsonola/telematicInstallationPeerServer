@@ -195,14 +195,25 @@ app.get("/testCycleSpacesArrayNewSpace", function(httpRequest, httpResponse, nex
 /***************** NEW CYCLING SERVER CODE!!!!! ***********************/
 var connectedSpacesArray = new CycleSpacesArray(); 
 
+var updatingAndCycling = false; ;
 app.get("/connectAndCycle", function(httpRequest, httpResponse, next)
 { 
-    console.log("received cycle request: " + httpRequest.query.id);
-    let id = httpRequest.query.id 
-    connectedSpacesArray.add( id ); 
-    connectedSpacesArray.cycle(); 
-    // httpResponse.status(404).send("Not found");
-    httpResponse.send("-1");
+    if( updatingAndCycling )
+    {
+        httpResponse.send("-1");
+    }
+    else{
+        updatingAndCycling = true; 
+
+        console.log("received cycle request: " + httpRequest.query.id);
+        let id = httpRequest.query.id 
+        connectedSpacesArray.add( id ); 
+        connectedSpacesArray.cycle(); 
+        // httpResponse.status(404).send("Not found");
+        httpResponse.send("-1");
+
+        updatingAndCycling = false; 
+    }
 
     // let newPartner = connectedSpacesArray.connectToNewSpace(id); 
 
@@ -218,25 +229,32 @@ app.get("/connectAndCycle", function(httpRequest, httpResponse, next)
 
     // connectedSpacesArray.logArrays(); 
 });
-
 app.get("/updateConnection", function(httpRequest, httpResponse, next)
 { 
-    console.log("received update connection request: " + httpRequest.query.id);
-    let id = httpRequest.query.id 
-
-    let newPartner = connectedSpacesArray.connectToNewSpace(id); 
-
-    if( newPartner === -1 )
+    
+    if( updatingAndCycling )
     {
         httpResponse.send("-1");
     }
-    else 
-    {
-        httpResponse.send(newPartner);
-    }
-    console.log( "send " +id+ " response: " + newPartner );
-    connectedSpacesArray.logArrays(); 
+    else{
+        updatingAndCycling = true; 
+        console.log("received update connection request: " + httpRequest.query.id);
+        let id = httpRequest.query.id 
 
+        let newPartner = connectedSpacesArray.connectToNewSpace(id); 
+
+        if( newPartner === -1 )
+        {
+            httpResponse.send("-1");
+        }
+        else 
+        {
+            httpResponse.send(newPartner);
+        }
+        console.log( "send " +id+ " response: " + newPartner );
+        connectedSpacesArray.logArrays(); 
+        updatingAndCycling = false; 
+    }
 });
 
 app.get("/disconnectId", function(httpRequest, httpResponse, next)
