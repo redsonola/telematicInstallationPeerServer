@@ -207,7 +207,7 @@ app.get("/connectAndCycle", function(httpRequest, httpResponse, next)
 
     if( newPartner === -1 )
     {
-        httpResponse.status(404).send("Not found");
+        httpResponse.send("-1");
     }
     else 
     {
@@ -227,7 +227,7 @@ app.get("/updateConnection", function(httpRequest, httpResponse, next)
 
     if( newPartner === -1 )
     {
-        httpResponse.status(404).send("Not found");
+        httpResponse.send("-1");
     }
     else 
     {
