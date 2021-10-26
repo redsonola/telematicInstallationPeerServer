@@ -202,20 +202,21 @@ app.get("/connectAndCycle", function(httpRequest, httpResponse, next)
     connectedSpacesArray.add( id ); 
     connectedSpacesArray.cycle(); 
     // httpResponse.status(404).send("Not found");
+    httpResponse.send("-1");
+    
+    // let newPartner = connectedSpacesArray.connectToNewSpace(id); 
 
-    let newPartner = connectedSpacesArray.connectToNewSpace(id); 
+    // if( newPartner === -1 )
+    // {
+    //     httpResponse.send("-1");
+    // }
+    // else 
+    // {
+    //     httpResponse.send(newPartner);
+    // }
+    // console.log( "send " +id+ " response: " + newPartner );
 
-    if( newPartner === -1 )
-    {
-        httpResponse.send("-1");
-    }
-    else 
-    {
-        httpResponse.send(newPartner);
-    }
-    console.log( "send " +id+ " response: " + newPartner );
-
-    connectedSpacesArray.logArrays(); 
+    // connectedSpacesArray.logArrays(); 
 });
 
 app.get("/updateConnection", function(httpRequest, httpResponse, next)
