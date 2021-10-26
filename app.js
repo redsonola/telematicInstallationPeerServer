@@ -203,7 +203,7 @@ app.get("/connectAndCycle", function(httpRequest, httpResponse, next)
     connectedSpacesArray.cycle(); 
     // httpResponse.status(404).send("Not found");
     httpResponse.send("-1");
-    
+
     // let newPartner = connectedSpacesArray.connectToNewSpace(id); 
 
     // if( newPartner === -1 )
@@ -243,6 +243,7 @@ app.get("/disconnectId", function(httpRequest, httpResponse, next)
 { 
     let id = httpRequest.query.id ; 
     connectedSpacesArray.remove(id); 
+    httpResponse.send("-1"); 
 });
 
 app.get("/reset", function(httpRequest, httpResponse, next)
