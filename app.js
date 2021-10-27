@@ -1,12 +1,12 @@
 //hello, world
 //https://myhsts.org/tutorial-develop-advance-webcam-site-using-peerjs-and-peerserver-with-express-js.php
+require('dotenv').config();
 
 const { CycleSpacesArray } = require("./cycleSpacesArray");
 
-const fs = require('fs');
 const express = require("express");
 const app = express();
-const http = require('https');
+const http = require('http');
 const cors = require("cors");
 
 app.use(cors());
@@ -14,8 +14,9 @@ app.use(cors());
 
 const port = 9000
 const server = http.createServer({
-  key: fs.readFileSync('../collabcmi/snowpack.key'),
-  cert: fs.readFileSync('../collabcmi/snowpack.crt')
+  // for https, require('https') instead of http above, and add the key & cert:
+  // key: fs.readFileSync('../collabcmi/snowpack.key'),
+  // cert: fs.readFileSync('../collabcmi/snowpack.crt')
 }, app);
 
 const ExpressPeerServer = require("peer").ExpressPeerServer(server);
@@ -306,67 +307,80 @@ const twilio = require('twilio')(
   process.env.TWILIO_AUTH_TOKEN
 );
 
-// websocket server
-const { Server } = require("socket.io");
-const io = new Server(server, {
-  cors: {}
-});
+// // websocket server
+// const { Server } = require("socket.io");
+// const io = new Server(server, {
+//   cors: {}
+// });
 
-/**
- * set up using this article:
- * https://www.twilio.com/blog/2014/12/set-phasers-to-stunturn-getting-started-with-webrtc-using-node-js-socket-io-and-twilios-nat-traversal-service.html
- * it had this whole fucking thing w/ websocket connections etc.
- * but really you can just use one token and reuse it.
- */
+// /**
+//  * set up using this article:
+//  * https://www.twilio.com/blog/2014/12/set-phasers-to-stunturn-getting-started-with-webrtc-using-node-js-socket-io-and-twilios-nat-traversal-service.html
+//  * it had this whole fucking thing w/ websocket connections etc.
+//  * but really you can just use one token and reuse it.
+//  */
 
 const oneWeek = 60 * 60 * 24 * 7;
 const token = twilio.tokens.create({ ttl: oneWeek });
-
-// websocket connection
-io.on('connection', function (socket)
-{
-  console.log('ws connection');
-  // socket.on('join', function (room)
-  // {
-  //   console.log('ws joined', room);
-  //   var clients = io.sockets.adapter.rooms[room];
-  //   var numClients = typeof clients !== "undefined" ? clients.length : 0;
-  //   console.log({ numClients })
-  //   if (numClients == 0)
-  //   {
-  //     socket.join(room);
-  //   }
-  //   else if (numClients == 1)
-  //   {
-  //     socket.join(room);
-  //     socket.emit("ready", room);
-  //     socket.broadcast.emit("ready", room);
-  //   } else
-  //   {
-  //     socket.emit("full", room);
-  //   }
-  // });
-
-  // this could have just been an http api call, it didn't need to be a websocket >_<
-  // the token contains the list of ICE servers.
-  socket.on('token', function ()
-  {
-    // just reuse the token
-    console.log('ws token');
-    token.then((token) => socket.emit('token', token));
-    // twilio.tokens.create(function (err, response)
-    // {
-    //   if (err)
-    //   {
-    //     console.log(err);
-    //   }
-    //   else
-    //   {
-    //     socket.emit('token', response);
-    //   }
-    // });
-  });
+app.get('/ice-servers', async (req, res) => {
+  // resolve the promise for token, then assign the value of token.iceServers to the iceServers const
+  const { iceServers } = await token;
+  // serialize & send with `Content-Type: application/json` headers
+  res.json(iceServers);
 });
+
+
+// // websocket connection
+// if you want to use this stuff again, run:
+// npm i --save socket.io
+// Websockets are really nice for things where you would poll for a response (the server
+// can just send stuff to the client whenever it feels like it, the client doesn't
+// have to keep checking) or a lot of little calls are being made (much lower latency).
+//
+// io.on('connection', function (socket)
+// {
+//   console.log('ws connection');
+//   // socket.on('join', function (room)
+//   // {
+//   //   console.log('ws joined', room);
+//   //   var clients = io.sockets.adapter.rooms[room];
+//   //   var numClients = typeof clients !== "undefined" ? clients.length : 0;
+//   //   console.log({ numClients })
+//   //   if (numClients == 0)
+//   //   {
+//   //     socket.join(room);
+//   //   }
+//   //   else if (numClients == 1)
+//   //   {
+//   //     socket.join(room);
+//   //     socket.emit("ready", room);
+//   //     socket.broadcast.emit("ready", room);
+//   //   } else
+//   //   {
+//   //     socket.emit("full", room);
+//   //   }
+//   // });
+
+//   // this could have just been an http api call, it didn't need to be a websocket >_<
+//   // the token contains the list of ICE servers.
+//   socket.on('token', function ()
+//   {
+//     // just reuse the token
+//     console.log('ws token');
+//     token.then((token) => socket.emit('token', token));
+//     // twilio.tokens.create(function (err, response)
+//     // {
+//     //   if (err)
+//     //   {
+//     //     console.log(err);
+//     //   }
+//     //   else
+//     //   {
+//     //     socket.emit('token', response);
+//     //   }
+//     // });
+//   });
+// });
 
 server.listen(process.env.PORT || 9000, () =>
 {
