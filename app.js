@@ -286,11 +286,11 @@ app.get("/updateConnection", function (httpRequest, httpResponse, next)
             }
             else 
             {
-                httpResponse.send(newPartner);
                 console.log( "RETURNED AN ACTUAL ID: send " +id+ " response: " + newPartner );
+                httpResponse.send(newPartner);
             }
             // console.log( "send " +id+ " response: " + newPartner );
-            // connectedSpacesArray.logArrays(); 
+            connectedSpacesArray.logArrays(); 
         }   
     }
     // console.log("send " + id + " response: " + newPartner);
