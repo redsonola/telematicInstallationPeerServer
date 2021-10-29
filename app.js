@@ -255,7 +255,6 @@ app.get("/updateConnection", function (httpRequest, httpResponse, next)
       httpResponse.send("-1");
     }
     else{
-        updatingAndCycling = true; 
         // console.log("received update connection request: " + httpRequest.query.id);
         let id = httpRequest.query.id 
 
@@ -309,6 +308,7 @@ app.get("/disconnectId", function (httpRequest, httpResponse, next)
 app.get("/reset", function (httpRequest, httpResponse, next)
 {
   connectedSpacesArray.reset();
+  updatingAndCycling = false; 
   httpResponse.send("reset peers");
   console.log("reset peers");
 });
