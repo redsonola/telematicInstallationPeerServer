@@ -95,9 +95,7 @@ class CycleSpacesArray
         {
             return -2; //not found in the ids, so add.
         }
-        
-        //connection has been updated so don't reconnect
-        if( this.updated[ askingIndex ] )
+        else if( this.updated[ askingIndex ] )
         {
             return -1; 
         }
