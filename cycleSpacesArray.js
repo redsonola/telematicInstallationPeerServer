@@ -101,7 +101,6 @@ class CycleSpacesArray
         }
         else
         {
-            console.log("ACTUALLY CONNECTING PEOPLE");
             let pairIndex; 
             let whichArray; 
             let indexInArray1  = this.array1.indexOf( askingIndex ); 
@@ -122,6 +121,7 @@ class CycleSpacesArray
             let index = whichArray[ pairIndex ];
             this.updated[ index ] = true; 
             this.updated[ askingIndex ] = true; 
+            console.log("ACTUALLY CONNECTING PEOPLE");
             return this.ids[ index ]; //OK! new connection
         }
     }

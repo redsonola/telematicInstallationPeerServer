@@ -237,7 +237,7 @@ app.get("/connectAndCycle", function (httpRequest, httpResponse, next)
 });
 app.get("/updateConnection", function (httpRequest, httpResponse, next)
 {
-    console.log("received cycle request: " + httpRequest.query.id);
+    console.log("received update request: " + httpRequest.query.id);
 
 
 //   if (updatingAndCycling)
@@ -263,7 +263,7 @@ app.get("/updateConnection", function (httpRequest, httpResponse, next)
             {
                 connectedSpacesArray.remove('null');
                 httpResponse.send("-1"); 
-                console.log( "RETURNED NULL!!" );
+                // console.log( "RETURNED NULL!!" );
 
             }
             else
