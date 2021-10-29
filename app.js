@@ -263,26 +263,28 @@ app.get("/updateConnection", function (httpRequest, httpResponse, next)
         {
             connectedSpacesArray.remove('null');
         }
+        else
+        {
+            let newPartner = connectedSpacesArray.connectToNewSpace(id); 
 
-        let newPartner = connectedSpacesArray.connectToNewSpace(id); 
-
-        if( newPartner === -1 )
-        {
-            httpResponse.send("-1");
-        }
-        else if( newPartner === -2 )
-        {
-            connectedSpacesArray.add( id ); 
-            connectedSpacesArray.cycle(); 
-            httpResponse.send("-1");
-        }
-        else 
-        {
-            httpResponse.send(newPartner);
-        }
-        console.log( "send " +id+ " response: " + newPartner );
-        connectedSpacesArray.logArrays(); 
-        updatingAndCycling = false; 
+            if( newPartner === -1 )
+            {
+                httpResponse.send("-1");
+            }
+            else if( newPartner === -2 )
+            {
+                connectedSpacesArray.add( id ); 
+                connectedSpacesArray.cycle(); 
+                httpResponse.send("-1");
+            }
+            else 
+            {
+                httpResponse.send(newPartner);
+            }
+            console.log( "send " +id+ " response: " + newPartner );
+            connectedSpacesArray.logArrays(); 
+            updatingAndCycling = false; 
+        }   
     }
     console.log("send " + id + " response: " + newPartner);
     connectedSpacesArray.logArrays();
