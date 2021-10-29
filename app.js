@@ -245,7 +245,7 @@ app.get("/updateConnection", function (httpRequest, httpResponse, next)
   else
   {
     updatingAndCycling = true;
-    console.log("received update connection request: " + httpRequest.query.id);
+    // console.log("received update connection request: " + httpRequest.query.id);
     let id = httpRequest.query.id
 
     let newPartner = connectedSpacesArray.connectToNewSpace(id);
@@ -256,7 +256,7 @@ app.get("/updateConnection", function (httpRequest, httpResponse, next)
     }
     else{
         updatingAndCycling = true; 
-        console.log("received update connection request: " + httpRequest.query.id);
+        // console.log("received update connection request: " + httpRequest.query.id);
         let id = httpRequest.query.id 
 
         if(id === 'null' || id === null)
@@ -281,12 +281,13 @@ app.get("/updateConnection", function (httpRequest, httpResponse, next)
             else 
             {
                 httpResponse.send(newPartner);
+                console.log( "send " +id+ " response: " + newPartner );
             }
-            console.log( "send " +id+ " response: " + newPartner );
+            // console.log( "send " +id+ " response: " + newPartner );
             connectedSpacesArray.logArrays(); 
         }   
     }
-    console.log("send " + id + " response: " + newPartner);
+    // console.log("send " + id + " response: " + newPartner);
     connectedSpacesArray.logArrays();
     updatingAndCycling = false;
   }

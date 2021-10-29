@@ -103,6 +103,8 @@ class CycleSpacesArray
         }
         else
         {
+            
+
             let pairIndex; 
             let whichArray; 
             let indexInArray1  = this.array1.indexOf( askingIndex ); 
