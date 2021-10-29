@@ -237,6 +237,8 @@ app.get("/connectAndCycle", function (httpRequest, httpResponse, next)
 });
 app.get("/updateConnection", function (httpRequest, httpResponse, next)
 {
+    console.log("received cycle request: " + httpRequest.query.id);
+
 
 //   if (updatingAndCycling)
 //   {
@@ -256,7 +258,6 @@ app.get("/updateConnection", function (httpRequest, httpResponse, next)
         }
         else{
             // console.log("received update connection request: " + httpRequest.query.id);
-            let id = httpRequest.query.id 
 
             if(id === 'null' || id === null)
             {
