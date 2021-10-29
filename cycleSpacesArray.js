@@ -94,7 +94,7 @@ class CycleSpacesArray
         let askingIndex = this.ids.indexOf( askingID ); 
         if( askingIndex === -1 )
         {
-            return -1;
+            return -2; //not found in the ids, so add.
         }
         
         //connection has been updated so don't reconnect

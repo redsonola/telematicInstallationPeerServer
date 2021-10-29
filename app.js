@@ -254,9 +254,30 @@ app.get("/updateConnection", function (httpRequest, httpResponse, next)
     {
       httpResponse.send("-1");
     }
-    else
-    {
-      httpResponse.send(newPartner);
+    else{
+        updatingAndCycling = true; 
+        console.log("received update connection request: " + httpRequest.query.id);
+        let id = httpRequest.query.id 
+
+        let newPartner = connectedSpacesArray.connectToNewSpace(id); 
+
+        if( newPartner === -1 )
+        {
+            httpResponse.send("-1");
+        }
+        else if( newPartner === -2 )
+        {
+            connectedSpacesArray.add( id ); 
+            connectedSpacesArray.cycle(); 
+            httpResponse.send("-1");
+        }
+        else 
+        {
+            httpResponse.send(newPartner);
+        }
+        console.log( "send " +id+ " response: " + newPartner );
+        connectedSpacesArray.logArrays(); 
+        updatingAndCycling = false; 
     }
     console.log("send " + id + " response: " + newPartner);
     connectedSpacesArray.logArrays();
