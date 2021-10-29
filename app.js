@@ -238,64 +238,64 @@ app.get("/connectAndCycle", function (httpRequest, httpResponse, next)
 app.get("/updateConnection", function (httpRequest, httpResponse, next)
 {
 
-  if (updatingAndCycling)
-  {
-    httpResponse.send("-1");
-  }
-  else
-  {
-    updatingAndCycling = true;
-    // console.log("received update connection request: " + httpRequest.query.id);
-    let id = httpRequest.query.id
-
-    let newPartner = connectedSpacesArray.connectToNewSpace(id);
-
-    if (newPartner === -1)
-    {
-      httpResponse.send("-1");
-    }
-    else{
+//   if (updatingAndCycling)
+//   {
+//     httpResponse.send("-1");
+//   }
+//   else
+//   {
+//         updatingAndCycling = true;
         // console.log("received update connection request: " + httpRequest.query.id);
-        let id = httpRequest.query.id 
+        let id = httpRequest.query.id
 
-        if(id === 'null' || id === null)
+        let newPartner = connectedSpacesArray.connectToNewSpace(id);
+
+        if (newPartner === -1)
         {
-            connectedSpacesArray.remove('null');
-            httpResponse.send("-1"); 
-            console.log( "RETURNED NULL!!" );
-
+        httpResponse.send("-1");
         }
-        else
-        {
-            let newPartner = connectedSpacesArray.connectToNewSpace(id); 
+        else{
+            // console.log("received update connection request: " + httpRequest.query.id);
+            let id = httpRequest.query.id 
 
-            if( newPartner === -1 )
+            if(id === 'null' || id === null)
             {
-                httpResponse.send("-1");
-                console.log( "NO NEED FOR UPDATES: send " +id+ " response: " + newPartner );
-
-            }
-            else if( newPartner === -2 )
-            {
-                connectedSpacesArray.add( id ); 
-                connectedSpacesArray.cycle(); 
-                httpResponse.send("-1");
-                console.log( "ID WAS NOT FOUND IN LIST!!!!!!: send " +id+ " response: " + newPartner );
+                connectedSpacesArray.remove('null');
+                httpResponse.send("-1"); 
+                console.log( "RETURNED NULL!!" );
 
             }
-            else 
+            else
             {
-                console.log( "RETURNED AN ACTUAL ID: send " +id+ " response: " + newPartner );
-                httpResponse.send(newPartner);
-            }
-            // console.log( "send " +id+ " response: " + newPartner );
-            connectedSpacesArray.logArrays(); 
-        }   
-    }
+                let newPartner = connectedSpacesArray.connectToNewSpace(id); 
+
+                if( newPartner === -1 )
+                {
+                    httpResponse.send("-1");
+                    console.log( "NO NEED FOR UPDATES: send " +id+ " response: " + newPartner );
+
+                }
+                else if( newPartner === -2 )
+                {
+                    connectedSpacesArray.add( id ); 
+                    connectedSpacesArray.cycle(); 
+                    httpResponse.send("-1");
+                    console.log( "ID WAS NOT FOUND IN LIST!!!!!!: send " +id+ " response: " + newPartner );
+
+                }
+                else 
+                {
+                    console.log( "RETURNED AN ACTUAL ID: send " +id+ " response: " + newPartner );
+                    httpResponse.send(newPartner);
+                }
+                // console.log( "send " +id+ " response: " + newPartner );
+                connectedSpacesArray.logArrays(); 
+            }   
+        }
+
+        // updatingAndCycling = false;
     // console.log("send " + id + " response: " + newPartner);
     // connectedSpacesArray.logArrays();
-    updatingAndCycling = false;
-  }
 });
 
 app.get("/disconnectId", function (httpRequest, httpResponse, next)
