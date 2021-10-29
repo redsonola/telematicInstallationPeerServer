@@ -259,9 +259,10 @@ app.get("/updateConnection", function (httpRequest, httpResponse, next)
         console.log("received update connection request: " + httpRequest.query.id);
         let id = httpRequest.query.id 
 
-        if(id === 'null')
+        if(id === 'null' || id === null)
         {
             connectedSpacesArray.remove('null');
+            httpResponse.send("-1"); 
         }
         else
         {
