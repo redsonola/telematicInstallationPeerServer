@@ -263,6 +263,8 @@ app.get("/updateConnection", function (httpRequest, httpResponse, next)
         {
             connectedSpacesArray.remove('null');
             httpResponse.send("-1"); 
+            console.log( "RETURNED NULL!!" );
+
         }
         else
         {
@@ -271,24 +273,28 @@ app.get("/updateConnection", function (httpRequest, httpResponse, next)
             if( newPartner === -1 )
             {
                 httpResponse.send("-1");
+                console.log( "NO NEED FOR UPDATES: send " +id+ " response: " + newPartner );
+
             }
             else if( newPartner === -2 )
             {
                 connectedSpacesArray.add( id ); 
                 connectedSpacesArray.cycle(); 
                 httpResponse.send("-1");
+                console.log( "ID WAS NOT FOUND IN LIST!!!!!!: send " +id+ " response: " + newPartner );
+
             }
             else 
             {
                 httpResponse.send(newPartner);
-                console.log( "send " +id+ " response: " + newPartner );
+                console.log( "RETURNED AN ACTUAL ID: send " +id+ " response: " + newPartner );
             }
             // console.log( "send " +id+ " response: " + newPartner );
-            connectedSpacesArray.logArrays(); 
+            // connectedSpacesArray.logArrays(); 
         }   
     }
     // console.log("send " + id + " response: " + newPartner);
-    connectedSpacesArray.logArrays();
+    // connectedSpacesArray.logArrays();
     updatingAndCycling = false;
   }
 });
