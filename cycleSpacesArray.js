@@ -10,6 +10,11 @@ class CycleSpacesArray
 
     add( id )   
     {
+        if(id==='null' || id === null)
+        {
+            return; 
+        }
+
         let checkIfAdded =  this.ids.indexOf( id ); 
         if( checkIfAdded !== -1)
         {
@@ -28,12 +33,6 @@ class CycleSpacesArray
         {
             this.array2.push( id_index ); 
         }
-        
-        if( this.array1.length === this.array2.length )
-        {
-            return [ this.ids[ this.ids.length-1, this.ids.length-2 ] ];
-        }
-        else return []; 
     }
 
     cycle()

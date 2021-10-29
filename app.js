@@ -283,7 +283,6 @@ app.get("/updateConnection", function (httpRequest, httpResponse, next)
             }
             console.log( "send " +id+ " response: " + newPartner );
             connectedSpacesArray.logArrays(); 
-            updatingAndCycling = false; 
         }   
     }
     console.log("send " + id + " response: " + newPartner);
